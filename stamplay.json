@@ -1,0 +1,10 @@
+{
+  "appId": "etsy2",
+  "apiKey": "9613b0203d22c23285967d7b4d5a027b0e97c5b3c67776449446762c847c4a83",
+  "public": "./",
+  "ignore": [
+    "stamplay.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "angular-stamplay",
+  "main": "angular-stamplay.js",
+  "homepage": "https://github.com/Stamplay/angular-stamplay",
+  "authors": [
+    "Alessandro Oliveri alessandro.oliveri@gmail.com"
+  ],
+  "description": "angularjs stamplay-js-sdk wrapper",
+  "keywords": [
+    "stamplay",
+    "angular-stamplay"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "313f9d1c98",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "313f9d1c98284020bba8d5bab75224b02394f10b"
+  },
+  "_source": "git://github.com/Stamplay/angular-stamplay.git",
+  "_target": "*",
+  "_originalSource": "angular-stamplay",
+  "_direct": true
+}

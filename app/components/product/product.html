@@ -1,0 +1,104 @@
+<div class="listing-wrap">
+	<div class="row">
+
+		<!-- main content (images, description, comments) -->
+		<div class="col-sm-7">
+		<div class="listing-main">
+
+			<!-- the images (show the bears if there are no images -->
+			<div class="listing-images">
+				<img
+					ng-repeat="picture in product.pictures"
+					ng-show="picture.photo"
+					ng-src="{{ picture.photo }}"
+					class="img-responsive">
+				<img
+					ng-show="!product.listing.pictures"
+					src="http://placebear.com/g/600/400"
+					class="img-responsive">
+			</div>
+
+			<!-- the description -->
+			<div class="listing-description">
+				<h3>Description</h3>
+				{{ product.listing.description }}
+			</div>
+
+			<!-- the comments (ng-repeat over the comments) -->
+			<h3>Comments</h3>
+
+			<!-- the comment form -->
+			<form ng-submit="product.createComment()" class="create-comment">
+
+			  <div class="form-group">
+			    <input type="text" class="form-control" placeholder="What are you thinking?" ng-model="product.commentData.text">
+			  </div>
+
+			  <div class="text-right">
+			    <button type="submit" class="btn btn-primary">Comment</button>
+			  </div>
+
+			</form>
+
+			<!-- repeat over the comments -->
+			<div class="listing-comments">
+				<div class="comment clearfix" ng-repeat="comment in product.listing.actions.comments | orderBy:'-dt_create'">
+
+					<!-- show an avatar if it exists or a placeholder image -->
+					<div class="comment-avatar pull-left">
+						<div ng-show="comment.picture">
+							<img ng-src="{{ comment.picture }}" class="img-responsive img-circle">
+						</div>
+						<div ng-show="!comment.picture">
+							<img src="http://placebear.com/g/45/45" class="img-responsive img-circle">
+						</div>
+						<strong>{{ comment.displayName }}</strong>
+					</div>
+
+					<div class="comment-content">
+						<p>{{ comment.text }}</p>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		</div>
+
+		<!-- the extra content (title, price, options, add to cart) -->
+		<div class="col-sm-5">
+		<div class="listing-extra">
+
+			<!-- the extras info -->
+			<div class="listing-info">
+				<h1>{{ product.listing.name }}</h1>
+
+				<!-- the price -->
+				<div class="listing-price">
+					{{ product.listing.price | currency }}
+				</div>
+
+				<!-- loop over the colors -->
+				<ul class="listing-colors">
+					<li ng-repeat="color in product.listing.color">{{ color }}</li>
+				</ul>
+
+				<!-- loop over the sizes -->
+				<ul class="listing-sizes">
+					<li ng-repeat="size in product.listing.size">{{ size }}</li>
+				</ul>
+			</div>
+
+			<!-- buy now button links to checkout route -->
+			<!-- only show buy now button if logged in -->
+			<a ui-sref="checkout({ id: product.listing.id })" class="listing-buy btn btn-success btn-block" ng-show="currentUser.id">
+			  Buy Now
+			</a>
+			<a ui-sref="authenticate" class="listing-buy btn btn-success btn-block" ng-show="!currentUser.id">
+			  Login/Signup to Purchase
+			</a>
+		</div>
+		</div>
+
+	</div>
+</div>

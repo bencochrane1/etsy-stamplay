@@ -1,0 +1,122 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Etsy Stamplay</title>
+    <link rel="stylesheet" href="./bower_components/bootswatch/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+
+    <script src="./bower_components/stamplay-js-sdk/dist/stamplay.min.js"></script>
+    <script>
+        Stamplay.init('etsy2');   // initiate stamplay app with app name
+    </script>
+
+    <!-- load our other JS dependencies -->
+    <script src="./bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="./bower_components/angular-stamplay/angular-stamplay.js"></script>
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script>
+      Stripe.setPublishableKey('pk_test_bxhAtM68CgEmOO6ROIoFoK2X');
+    </script>
+    <script src="./bower_components/algoliasearch/dist/algoliasearch.angular.js"></script>
+    <script src="./bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- load all the parts for our custom angular app -->
+    <!-- youd probably want to compile all this with a build system like gulp -->
+    <!-- load our angular components -->
+    <script src="./app/components/home/home.js"></script>
+    <script src="./app/components/shop/shop.js"></script>
+    <script src="./app/components/product/product.js"></script>
+    <script src="./app/components/checkout/checkout.js"></script>
+    <script src="./app/components/profile/profile.js"></script>
+    <script src="./app/components/admin/admin.js"></script>
+    <script src="./app/components/authenticate/authenticate.js"></script>
+
+    <!-- load our angular services -->
+    <script src="./app/shared/ProductService.js"></script>
+    <script src="./app/shared/UserService.js"></script>
+    <script src="./app/shared/OrderService.js"></script>
+    <script src="./app/shared/ShopService.js"></script>
+
+    <!-- load our core angular app -->
+    <script src="./app/app.routes.js"></script>
+    <script src="./app/app.js"></script>
+    <!-- required by ui-router -->
+    <base href="/">
+
+    <!-- CSS -->
+    <!-- load up bootswatch-cerulean and our custom styles -->
+
+
+    <!-- JS -->
+    <!-- load the stamplay sdk and configure it -->
+
+
+</head>
+<body ng-app="etsy" ng-controller="MainController as main">
+
+  <header>
+      <nav id="main-nav" class="navbar">
+      <div class="container">
+
+          <!-- site logo -->
+          <div class="navbar-header">
+              <a ui-sref="home" class="navbar-brand">
+                  <span class="glyphicon glyphicon-heart-empty"></span>
+                  Shop City
+              </a>
+          </div>
+
+          <!-- search form -->
+          <form class="search-form navbar-form navbar-left">
+            <div class="form-group">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                ng-model="main.query"
+                placeholder="Find a Product"
+                typeahead="product as product.name for product in main.searchProducts($viewValue)"
+                typeahead-on-select="main.searchPicked($item, $model, $label)">
+                <div class="input-group-addon">
+                  <span class="glyphicon glyphicon-search"></span>
+                </div>
+            </div>
+            </div>
+          </form>
+
+          <!-- logged in navigation -->
+          <!-- todo: check for logged in user -->
+          <ul class="nav navbar-nav navbar-right" ng-show="currentUser.id">
+            <li><a ui-sref="admin">Admin</a></li>
+            <li><a ui-sref="profile">Profile</a></li>
+            <li><a ng-click="main.logout()">Logout</a></li>
+          </ul>
+
+          <!-- not logged in navigation -->
+          <ul class="nav navbar-nav navbar-right" ng-show="!currentUser.id">
+              <li><a ui-sref="authenticate">Register</a></li>
+              <li><a ui-sref="authenticate">Sign in</a></li>
+          </ul>
+      </div>
+      </nav>
+  </header>
+
+  <!-- ui-router will inject our component views here -->
+  <main class="container">
+      <div ui-view></div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="text-center">
+      © 2015 Shop City
+  </footer>
+
+
+</body>
+</html>
